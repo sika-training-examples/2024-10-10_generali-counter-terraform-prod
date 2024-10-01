@@ -19,8 +19,9 @@ provider "azurerm" {
 module "generali_counter_prod" {
   source = "git::https://gitlab.sikademo.com/generali/generali-counter-terraform.git?ref=master"
 
-  env    = "prod"
-  suffix = "ondrejsika"
+  env      = "prod"
+  suffix   = "ondrejsika"
+  replicas = 2
   firewall_rules = {
     all = {
       start_ip_address = "0.0.0.0"
@@ -32,4 +33,8 @@ module "generali_counter_prod" {
 output "generali_counter_prod" {
   value     = module.generali_counter_prod
   sensitive = true
+}
+
+output "generali_counter_prod_url" {
+  value = module.generali_counter_prod.counter_url
 }
